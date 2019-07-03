@@ -6,7 +6,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
-@EnableTransactionManagement
 @MapperScan(basePackages = "org.aepd.ucenter.mapper")
 public class SpringbootShiroApplication {
 
