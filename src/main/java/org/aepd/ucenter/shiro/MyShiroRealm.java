@@ -84,7 +84,6 @@ public class MyShiroRealm extends CasRealm {
 		User user = userService.selectByUsername(loginName);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("userid", user.getId());
-
 		List<Resources> resourcesList = resourcesService.loadUserResources(map);
 		// 权限信息对象info,用来存放查出的用户的所有的角色（role）及权限（permission）
 		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();

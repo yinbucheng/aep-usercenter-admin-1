@@ -8,7 +8,6 @@
 
     <!-- 输出hibernate的sql，会同时记录在文件日志中去，所以使用：spring.jpa.show-sql 配置比较好 -->
     <!--<logger name="org.hibernate.SQL" level="DEBUG" />-->
-    
     <appender name="dailyRollingFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
 	  <File>/data/log/app.log</File>
 	  <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">

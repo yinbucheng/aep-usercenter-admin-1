@@ -159,13 +159,11 @@ public class ShiroConfig {
     @Bean(name="myShiroCasRealm")
     public MyShiroRealm myShiroRealm(){
         MyShiroRealm myShiroRealm = new MyShiroRealm();
-        
         //这是CAS服务器的URL（例如：http：// host：port / cas）
         myShiroRealm.setCasServerUrlPrefix(casServerUrlPrefix);
         //设置应用程序的CAS服务URL（例如：http：// host：port / mycontextpath / shiro-cas）
         myShiroRealm.setCasService(shiroServerUrlPrefix + casFilterUrlPattern);
         //myShiroRealm.setCacheManager(cacheManager);
-        
         return myShiroRealm;
     }
     
@@ -192,10 +190,8 @@ public class ShiroConfig {
          * 但是这里稍微有个小问题，就是在刚修改用户的权限时，无法立即失效。
          */
        // securityManager.setCacheManager(cacheManager());
-        
         // 自定义session管理 使用redis
         securityManager.setSessionManager(sessionManager());
-        
         // 指定 SubjectFactory
         //securityManager.setSubjectFactory(new CasSubjectFactory());
         return securityManager;
@@ -267,8 +263,6 @@ public class ShiroConfig {
             }
         }
         filterChainDefinitionMap.put("/**", "authc");
-
-
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilterFactoryBean;
     }
@@ -341,10 +335,8 @@ public class ShiroConfig {
     @Bean
     public HashedCredentialsMatcher hashedCredentialsMatcher(){
         HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
-
         hashedCredentialsMatcher.setHashAlgorithmName("md5");//散列算法:这里使用MD5算法;
         hashedCredentialsMatcher.setHashIterations(1);//散列的次数，比如散列两次，相当于 md5(md5(""));
-
         return hashedCredentialsMatcher;
     }
 
