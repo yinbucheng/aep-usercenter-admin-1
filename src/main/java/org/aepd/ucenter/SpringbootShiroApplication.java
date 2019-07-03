@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @MapperScan(basePackages = "org.aepd.ucenter.mapper")
 public class SpringbootShiroApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(SpringbootShiroApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(SpringbootShiroApplication.class, args);
+    }
 }
