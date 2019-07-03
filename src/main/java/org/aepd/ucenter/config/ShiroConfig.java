@@ -147,7 +147,6 @@ public class ShiroConfig {
     /**
      * 初始化此领域并可能启用缓存，具体取决于配置。
 		当这个方法被调用时，执行下面的逻辑：
-
 		如果cache属性已经设置，它将被用来缓存AuthorizingRealm.getAuthorizationInfo(org.apache.shiro.subject.PrincipalCollection) 
 		方法调用返回的AuthorizationInfo对象。所有将来的调用getAuthorizationInfo将首先尝试使用此缓存，
 		以缓解对底层数据存储的潜在不必要的调用。
