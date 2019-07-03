@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- base.xml in the spring-boot jar, -->
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+    <!--
+    <logger name="org.springframework.web" level="DEBUG"/>
+    -->
+
+    <!-- 输出hibernate的sql，会同时记录在文件日志中去，所以使用：spring.jpa.show-sql 配置比较好 -->
+    <!--<logger name="org.hibernate.SQL" level="DEBUG" />-->
+    
+    <appender name="dailyRollingFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	  <File>/data/log/app.log</File>
+	  <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+	    <!-- daily rollover -->
+	    <FileNamePattern>rest-demo.%d{yyyy-MM-dd}.log</FileNamePattern>
+	    <!-- keep 30 days' worth of history -->
+	    <maxHistory>30</maxHistory>         
+	  </rollingPolicy>
+	  <encoder>
+	    <Pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{35} - %msg %n</Pattern>
+	  </encoder>        
+	</appender>
+</configuration>

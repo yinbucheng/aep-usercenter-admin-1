@@ -1,0 +1,1 @@
+create database shiro if not exist;
