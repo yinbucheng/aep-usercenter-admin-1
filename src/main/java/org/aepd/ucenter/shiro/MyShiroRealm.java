@@ -64,11 +64,6 @@ public class MyShiroRealm extends CasRealm {
 
 	/**
 	 * 权限认证，为当前登录的Subject授予角色和权限
-	 * 
-	 * @see 经测试：本例中该方法的调用时机为需授权资源被访问时
-	 * @see 经测试：并且每次访问需授权资源时都会执行该方法中的逻辑，这表明本例中默认并未启用AuthorizationCache
-	 * @see 经测试：如果连续访问同一个URL（比如刷新），该方法不会被重复调用，Shiro有一个时间间隔（也就是cache时间，在ehcache-
-	 *      shiro.xml中配置），超过这个时间间隔再刷新页面，该方法会被执行
 	 */
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
@@ -94,17 +89,13 @@ public class MyShiroRealm extends CasRealm {
 	}
 
 	/**
-	 * 单Cas服务登录校验通过后，便会调用这个方法，并携带用户信息的Token参数
-	 * 假设只要是有Token过来，就说明是有效的登录用户，不再对密码等做校验 方法名称 : doGetAuthenticationInfo 功能描述 :
-	 * 验证当前登陆的Subject
-	 * 
-	 * @param authcToken
-	 *            当前登录用户的token
-	 * @return 验证信息
+	 * 用户认证
+	 *
 	 */
 	@SuppressWarnings("deprecation")
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
 		// 获取用户的输入的账号.
+
 		AuthenticationInfo atoken = super.doGetAuthenticationInfo(token);
 		String account = (String) atoken.getPrincipals().getPrimaryPrincipal();
 			logger.info("当前Subject时获取到用户名为" + account);
@@ -117,14 +108,6 @@ public class MyShiroRealm extends CasRealm {
 			if (0 == user.getEnable()) {
 				throw new LockedAccountException(); // 帐号锁定
 			}
-			// SimpleAuthenticationInfo authenticationInfo = new
-			// SimpleAuthenticationInfo(
-			// user, //用户
-			// user.getPassword(), //密码
-			// ByteSource.Util.bytes(username),
-			// getName() //realm name
-			// );
-
 			Session session = SecurityUtils.getSubject().getSession();
 
 			session.setAttribute("userSession", user);

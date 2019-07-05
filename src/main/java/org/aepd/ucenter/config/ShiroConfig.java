@@ -86,7 +86,8 @@ public class ShiroConfig {
 
     @Value("${spring.redis.password}")
     private String password;
-    
+
+    //注入生命周期方法
     @Bean
     public static LifecycleBeanPostProcessor getLifecycleBeanPostProcessor() {
         return new LifecycleBeanPostProcessor();
@@ -138,7 +139,6 @@ public class ShiroConfig {
         String successUrl = shiroServerUrlPrefix + "/usersPage";
         casFilter.setFailureUrl(failUrl);
         casFilter.setSuccessUrl(successUrl);
-
         return casFilter;
     }
     
@@ -178,22 +178,12 @@ public class ShiroConfig {
         //设置realm.MyShiroRealm
         securityManager.setRealm(myShiroCasRealm);
         
-        /**
-         * 自定义缓存实现 使用redis
-         * 注释掉setCacheManager的原因：
-         * 每次在需要验证的地方，比如在subject.hasRole(“admin”) 
-         * 或 subject.isPermitted(“admin”)、@RequiresRoles(“admin”) 、 
-         * shiro:hasPermission=”/users/add”的时候都会调用MyShiroRealm
-         * 中的doGetAuthorizationInfo()。但是以为这些信息不是经常变的，
-         * 所以有必要进行缓存。把这行代码的注释打开，的时候都会调用MyShiroRealm
-         * 中的doGetAuthorizationInfo()的返回结果会被redis缓存。
-         * 但是这里稍微有个小问题，就是在刚修改用户的权限时，无法立即失效。
-         */
-       // securityManager.setCacheManager(cacheManager());
+
+        securityManager.setCacheManager(cacheManager());
         // 自定义session管理 使用redis
         securityManager.setSessionManager(sessionManager());
         // 指定 SubjectFactory
-        //securityManager.setSubjectFactory(new CasSubjectFactory());
+//        securityManager.setSubjectFactory(new CasSubjectFactory());
         return securityManager;
     }
     
@@ -220,7 +210,7 @@ public class ShiroConfig {
         // 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
         shiroFilterFactoryBean.setLoginUrl(casServerUrlPrefix + "/login?service=" + shiroServerUrlPrefix + casFilterUrlPattern);
         // 登录成功后要跳转的链接
-//         shiroFilterFactoryBean.setSuccessUrl("/usersPage");
+         shiroFilterFactoryBean.setSuccessUrl("/usersPage");
         //未授权界面;
         shiroFilterFactoryBean.setUnauthorizedUrl("/403");
         
